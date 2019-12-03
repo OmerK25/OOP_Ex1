@@ -3,7 +3,7 @@ package Ex1;
 /**
  * this class
  * private node
- * @Autor Omer Katz, Rafaat Marzuq.
+ * @Autor Omer Katz, Raafat Marzuq.
  */
 public class ComplexFunction implements complex_function {
 	private node head;
@@ -37,7 +37,6 @@ public class ComplexFunction implements complex_function {
 	public ComplexFunction(function p1) {
 		head.f = p1;
 		head.operator = null;
-
 	}
 
 	public boolean stringIsOperator(String s) {
