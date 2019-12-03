@@ -1,0 +1,30 @@
+[33mcommit 4da7cfec0fa427a1bce8f783213f4bada55bbaa2[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Merge: f0eb23c 97a776c
+Author: OmerK25 <omer2katz@gmail.com>
+Date:   Sun Dec 1 13:49:47 2019 +0200
+
+    Merge branch 'master' of https://github.com/OmerK25/OOP_ex2
+
+[33mcommit f0eb23ceedc63ef0118930cedb6c5517da4ba186[m
+Author: OmerK25 <omer2katz@gmail.com>
+Date:   Sun Dec 1 13:44:42 2019 +0200
+
+    fixes
+
+[33mcommit 97a776c045e950c64bdecf4b3b292f48c2a1893d[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: OmerK25 <48291816+OmerK25@users.noreply.github.com>
+Date:   Thu Nov 28 17:40:34 2019 +0200
+
+    Delete MonomTest.java
+
+[33mcommit c73acd5230b3dbde8118220c3e7671ed3deb95b6[m
+Author: OmerK25 <48291816+OmerK25@users.noreply.github.com>
+Date:   Thu Nov 28 17:40:25 2019 +0200
+
+    Delete PolynomTest.java
+
+[33mcommit 8922270812a2c18354a9ecfbba40fa6717cf52e6[m
+Author: OmerK25 <omer2katz@gmail.com>
+Date:   Wed Nov 27 20:10:55 2019 +0200
+
+    the basic Ex
