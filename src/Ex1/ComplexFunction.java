@@ -6,7 +6,8 @@ package Ex1;
  * @Autor Omer Katz, Raafat Marzuq.
  */
 public class ComplexFunction implements complex_function {
-	private node head;
+	private function left, right;
+	private Operation op;
 
 
 	//***********constructors**********
@@ -16,63 +17,63 @@ public class ComplexFunction implements complex_function {
 	 * @param p1
 	 * @param p2
 	 */
-	public ComplexFunction(Operation op,function p1, function p2) {
-		head.operator = op;
-		head.left.f = p1;
-		head.right.f = p2;
-	}
+
 
 	/**
 	 * @param op is a string that represents operator.
 	 */
 	public ComplexFunction(String op,function p1, function p2) {
-		if(stringIsOperator(op)){
-			//	head.operator = fromStringToOperator(op);	
-		}
-
-		head.left.f = p1;
-		head.right.f = p2;
+		this.op=stringToOperator(op);
+		left = p1;
+		right = p2;
 	}
 	//this constructor gets only one function, and sets it to be the root node.
 	public ComplexFunction(function p1) {
-		head.f = p1;
-		head.operator = null;
+		left = p1;
+		op = null;
 	}
 
-	public boolean stringIsOperator(String s) {
-		boolean isOperator = false;
-		s.toLowerCase();
-		switch(s){
-		case "plus":
-			isOperator = true;
-			break;
+	public static Operation stringToOperator(String s) {
+		Operation o = null;
+		s = s.toLowerCase();
+		try{
+			switch(s){
+			case "plus":
+				o = Operation.Plus;
+				break;
 
-		case "times":
-			isOperator = true;
-			break;
+			case "mul":
+				o = Operation.Times;
+				break;
 
-		case "divid":
-			isOperator = true;
-			break;
+			case "div":
+				o = Operation.Divid;
+				break;
 
-		case "max":
-			isOperator = true;
-			break;
+			case "max":
+				o = Operation.Max;
+				break;
 
-		case "min":
-			isOperator = true;
-			break;
+			case "min":
+				o = Operation.Min;
+				break;
 
-		case "comp":
-			isOperator = true;
-			break;
+			case "comp":
+				o = Operation.Comp;
+				break;
 
-		case "none":
-			isOperator = true;
-			break;
-
+			case "none":
+				o = Operation.None;
+				break;
+			}
+			if(o == null) {
+				throw new Exception("the String is not a valid operator");
+			}
 		}
-		return isOperator;
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return o;
 	}
 
 
@@ -98,10 +99,9 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public void plus(function f1) {
-		node temp = this.head;
-		this.head = new node(Operation.Plus);
-		head.left = temp;
-		head.right = new node(f1);
+		this.left = this;
+		this.right = f1;
+		op = Operation.Plus;
 	}
 
 	@Override
