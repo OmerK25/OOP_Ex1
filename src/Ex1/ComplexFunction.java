@@ -86,12 +86,6 @@ public class ComplexFunction implements complex_function {
 	}
 
 	@Override
-	public function initFromString(String s) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public function copy() {
 		// TODO Auto-generated method stub
 		return null;
@@ -99,82 +93,72 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public void plus(function f1) {
-		this.left = this;
+		this.left = this.copy();
 		this.right = f1;
 		op = Operation.Plus;
 	}
 
 	@Override
 	public void mul(function f1) {
-		node temp = this.head;
-		this.head = new node(Operation.Times);
-		head.left = temp;
-		head.right = new node(f1);
+	
 
 	}
 
 	@Override
 	public void div(function f1) {
-		node temp = this.head;
-		this.head = new node(Operation.Divid);
-		head.left = temp;
-		head.right = new node(f1);
+	
 
 	}
 
 	@Override
 	public void max(function f1) {
-		node temp = this.head;
-		this.head = new node(Operation.Max);
-		head.left = temp;
-		head.right = new node(f1);
+
 
 	}
 
 	@Override
 	public void min(function f1) {
-		node temp = this.head;
-		this.head = new node(Operation.Min);
-		head.left = temp;
-		head.right = new node(f1);
+
 
 	}
 
 	@Override
 	public void comp(function f1) {
-		node temp = this.head;
-		this.head = new node(Operation.Comp);
-		head.left = temp;
-		head.right = new node(f1);
+		//comp means f(g(x)).
 
+	}
+	public String toString() {
+		/**
+		 * should be recursive, if polynom or monom just print, if complex function use the recursive with this cf.
+		 */
+		return null;
+		
+	}
+	
+	@Override
+	public function initFromString(String s) {
+		/**
+		 * also recursive, every time it see a cf, call the function with this cf.
+		 */
+		return null;
 	}
 
 	@Override
 	public function left() {
-		if(this.head == null) {
-			System.out.println("there is no left side");
-			return null;
+		return left;
 		}
 
-		else
-			if(this.head.left==null) {
-				return this.head.f;
-			}
-
-			else
-				return this.head.left.f;
-	}
 
 	@Override
 	public function right() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return right;
 	}
 
 	@Override
 	public Operation getOp() {
-		// TODO Auto-generated method stub
-		return null;
+		return op;
+	
 	}
 
 }
