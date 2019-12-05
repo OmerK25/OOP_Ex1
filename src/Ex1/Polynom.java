@@ -115,6 +115,7 @@ public class Polynom implements Polynom_able{
 		Polynom_able c = (Polynom_able) p1.copy();
 		c.multiply(Monom.MINUS1);
 		this.add(c);
+
 	}
 	/**
 	 * this method Multiple 2 polynoms with each other.
@@ -145,7 +146,7 @@ public class Polynom implements Polynom_able{
 			}
 		}
 	}
-	
+
 	@Override
 	public void multiply(Monom m1) {
 		//multiple a polynom with a singke monom.
@@ -158,13 +159,13 @@ public class Polynom implements Polynom_able{
 	@Override
 	//checks if 2 polynoms are equal by switching them to strings and using String.equal method.
 	public boolean equals(Object p1) {
-	Polynom p =  (Polynom) this.copy();
-	Polynom p2 = (Polynom) p1;
-	p.substract(p2);
-	if (p.isZero() || Math.abs(p.f(10))<0.001) {
-		return true;
-	}
-	
+		Polynom p =  (Polynom) this.copy();
+		Polynom p2 = (Polynom) p1;
+		p.substract(p2);
+		if (p.isZero() || Math.abs(p.f(10))<0.001) {
+			return true;
+		}
+
 		return false;
 	}
 
@@ -215,15 +216,15 @@ public class Polynom implements Polynom_able{
 	@Override
 	public Polynom_able derivative() {
 		//this function returns a new polynom thats contain the derivative of the argument polynom.
-		Iterator <Monom> i = this.iteretor();
-		Polynom d= new Polynom();
-		d.monList.clear();
-		while(i.hasNext()) {
 
-			d.monList.add(i.next().derivative());
-			d.monList.sort(c);
+		Polynom d = new Polynom();
+		for (int i=0; i<this.monList.size();i++) {
+
+			d.add(this.monList.get(i).derivative());
+
 		}
-		return d;
+		d.monList.sort(c);
+		return (Polynom_able) d;
 	}
 
 	@Override
