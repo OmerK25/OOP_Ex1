@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import Ex1.ComplexFunction;
+import Ex1.Monom;
 import Ex1.Polynom;
+import Ex1.complex_function;
 import Ex1.function;
 
 class ComplexFunctionTEST {
@@ -135,4 +137,17 @@ class ComplexFunctionTEST {
 		f1.comp(p3);
 		assertEquals(f1.toString(), exp.toString());	}
 
+	@Test
+	void testEquals() {
+		
+		ComplexFunction cf = new ComplexFunction("mul", new Monom("x"), new Monom("x"));
+		function p1 = new Monom("x^2");
+		ComplexFunction cf1 = new ComplexFunction(new Monom("x^2"));
+		ComplexFunction cf2 = new ComplexFunction("div",new Monom("x^2"),new Monom("x"));
+		function p2 = new Monom("x");
+		assertEquals(cf.equals(cf1),true);
+		assertEquals(p1.equals(cf),false);
+		assertEquals(p2.equals(cf2),false);
+	
+	}
 }

@@ -35,7 +35,7 @@ public class ComplexFunction implements complex_function {
 		s = s.toLowerCase();
 		try{
 			switch(s){
-			
+
 			case "plus":
 				o = Operation.Plus;
 				break;
@@ -79,10 +79,21 @@ public class ComplexFunction implements complex_function {
 		}
 		return o;
 	}
+	
+	@Override
+	public boolean equals(Object ob) {
+		if(!(ob instanceof ComplexFunction)) {
+			return false;
+		}
+		ComplexFunction cf = new ComplexFunction((function) ob);
 
-
-
-
+		for (int i=1;i<=40;i++) {
+			if (this.f(i)!=cf.f(i)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	@Override
 	public double f(double x) {
@@ -296,13 +307,13 @@ public class ComplexFunction implements complex_function {
 		}
 		Operation O= getOp();
 		switch (O) {
-		
+
 		case Plus:
 			return  "Plus(" + left() + "," + right() + ")";
-			
+
 		case Times:
 			return  "mul(" + left() + "," + right() + ")";
-			
+
 		case Divid:
 			return "div(" + left() + "," + right() + ")";
 		case None:
