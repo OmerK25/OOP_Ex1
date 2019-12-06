@@ -113,26 +113,34 @@ public class ComplexFunction implements complex_function {
 	@Override
 	public function initFromString(String s) {
 		// TODO Auto-generated method stub
+		int i=0;
 		String n=trimAll(s);
 		if(!n.contains(")") && !n.contains("(")) {
 			Polynom p1= new Polynom(s);
 			function f=new ComplexFunction(p1);
 			return f;
 		}
-		String[] f=findFun(n);
-		function p1 = initFromString(f[0].toString());
-		function p2 = initFromString(f[1].toString());
-		
-		return new ComplexFunction(f[2], p1, p2);
-	}
+		else {
+			
+			while (s.charAt(i) != '(') {
+				i++;
+			}
+			
+			int m=findMed(s , i+1);
+			String s1=n.substring(i+1, m);
+			String s2=n.substring(m+1,s.length()-1);
+			String s3 = n.substring(0, i);
+			function left = initFromString(s1);
+			function right = initFromString(s2);
+			function function= new ComplexFunction(s3, left, right);
+			return function;
+		}
+		}
 	public int findMed(String str ,int j) {
 		
-		while (str.charAt(j) != '(') {
-			j++;
-		}
-		int c=0;
-		int p=1;
-		int S=0;
+		
+		
+		int c=0, p=1, S=0;
 		for (; j < str.length(); j++) {
 		
 			if(str.charAt(j)==',') {
@@ -142,35 +150,19 @@ public class ComplexFunction implements complex_function {
 				p++;
 			}
 			if( str.charAt(j) == ',' && (c == p)) {
-				S=j;
-				return S;
+				
+				return j;
 			}
 			
 		}		
 		return S;
 		
 	}
-	public String[] findFun(String s) {
-		String[] f = new String[3];
-		int i=0;
-		while (s.charAt(i) != '(') {
-			i++;
-		}
-		int m=findMed(s, i+1);
-		f[0]=s.substring(i+1, m);
-		
-		f[1]=s.substring(m+1, s.length()-1);
-		function right = initFromString(f[1].toString());
-		f[2] = s.substring(0, i);
 	
-		
-		return f;
-		
-	}
 	public String trimAll(String s) {
 		String d="";
 		for (int i = 0; i < s.length(); i++) {
-			if(s.charAt(i) != ')'){
+			if(s.charAt(i) != ' '){
 				d=d+s.charAt(i);
 			}
 			
@@ -294,24 +286,19 @@ public class ComplexFunction implements complex_function {
 	}
 @Override
 	public String toString() {
-		return  getOp() +"(" + left() + "," + right() + ")"
+		if(right() == null) {
+			return   left().toString() 	;
+		}
+	return  getOp() +"(" + left() + "," + right() + ")"
 				 ;
 	}
 //////////////////////*******Setters*******\\\\\\\\\\\\\\\\\\\\\\\
 	public void setOp(Operation op) {
 		this.op = op;
 	}
-
-	
-
-
-
 	public void setLeft(function left) {
 		this.left = left;
 	}
-
-	
-
 	public void setRight(function right) {
 		this.right = right;
 	}
