@@ -24,17 +24,18 @@ public class ComplexFunction implements complex_function {
 		this.setOp(Operation.None);
 
 	}
-	
-	
-	
-	
-//  *************************************************************************************
-	
+
+
+
+
+	//  *************************************************************************************
+
 	public static Operation stringToOperator(String s) {
 		Operation o = null;
 		s = s.toLowerCase();
 		try{
 			switch(s){
+			
 			case "plus":
 				o = Operation.Plus;
 				break;
@@ -42,8 +43,14 @@ public class ComplexFunction implements complex_function {
 			case "mul":
 				o = Operation.Times;
 				break;
+			case "times":
+				o = Operation.Times;
+				break;
 
 			case "div":
+				o = Operation.Divid;
+				break;
+			case "divid":
 				o = Operation.Divid;
 				break;
 
@@ -75,7 +82,7 @@ public class ComplexFunction implements complex_function {
 
 
 
-	
+
 
 	@Override
 	public double f(double x) {
@@ -121,11 +128,11 @@ public class ComplexFunction implements complex_function {
 			return f;
 		}
 		else {
-			
+
 			while (s.charAt(i) != '(') {
 				i++;
 			}
-			
+
 			int m=findMed(s , i+1);
 			String s1=n.substring(i+1, m);
 			String s2=n.substring(m+1,s.length()-1);
@@ -135,14 +142,12 @@ public class ComplexFunction implements complex_function {
 			function function= new ComplexFunction(s3, left, right);
 			return function;
 		}
-		}
+	}
 	public int findMed(String str ,int j) {
-		
-		
-		
+
 		int c=0, p=1, S=0;
 		for (; j < str.length(); j++) {
-		
+
 			if(str.charAt(j)==',') {
 				c++;
 			}
@@ -150,26 +155,26 @@ public class ComplexFunction implements complex_function {
 				p++;
 			}
 			if( str.charAt(j) == ',' && (c == p)) {
-				
+
 				return j;
 			}
-			
+
 		}		
 		return S;
-		
+
 	}
-	
+
 	public String trimAll(String s) {
 		String d="";
 		for (int i = 0; i < s.length(); i++) {
 			if(s.charAt(i) != ' '){
 				d=d+s.charAt(i);
 			}
-			
+
 		}
 		return d;
 	}
-	
+
 	@Override
 	public function copy() {
 		// TODO Auto-generated method stub
@@ -184,7 +189,7 @@ public class ComplexFunction implements complex_function {
 			setOp(Operation.Plus);
 		}
 		function f= new ComplexFunction(getOp().toString(),left(), right());
-		
+
 		setLeft(f);
 		setRight(f1);
 		setOp(Operation.Plus);
@@ -197,10 +202,10 @@ public class ComplexFunction implements complex_function {
 		if(this.right == null) {
 			setRight(f1);
 			setOp(Operation.Times);
-			
+
 		}
 		function f= new ComplexFunction(getOp().toString(),left(), right());
-		
+
 		setLeft(f);
 		setRight(f1);
 		setOp(Operation.Times);
@@ -215,7 +220,7 @@ public class ComplexFunction implements complex_function {
 			setOp(Operation.Divid);
 		}
 		function f= new ComplexFunction(getOp().toString(),left(), right());
-		
+
 		setLeft(f);
 		setRight(f1);
 		setOp(Operation.Divid);
@@ -230,7 +235,7 @@ public class ComplexFunction implements complex_function {
 			setOp(Operation.Max);
 		}
 		function f= new ComplexFunction(getOp().toString(),left(), right());
-		
+
 		setLeft(f);
 		setRight(f1);
 		setOp(Operation.Max);
@@ -245,7 +250,7 @@ public class ComplexFunction implements complex_function {
 			setOp(Operation.Min);
 		}
 		function f= new ComplexFunction(getOp().toString(),left(), right());
-		
+
 		setLeft(f);
 		setRight(f1);
 		setOp(Operation.Min);
@@ -260,13 +265,13 @@ public class ComplexFunction implements complex_function {
 			setOp(Operation.Comp);
 		}
 		function f= new ComplexFunction(getOp().toString(),left(), right());
-		
+
 		setLeft(f);
 		setRight(f1);
 		setOp(Operation.Comp);
 
 	}
-// ***************** Getters ******************
+	// ***************** Getters ******************
 	@Override
 	public function left() {
 		// TODO Auto-generated method stub
@@ -284,15 +289,39 @@ public class ComplexFunction implements complex_function {
 		// TODO Auto-generated method stub
 		return this.op;
 	}
-@Override
+	@Override
 	public String toString() {
 		if(right() == null) {
 			return   left().toString() 	;
 		}
-	return  getOp() +"(" + left() + "," + right() + ")"
-				 ;
+		Operation O= getOp();
+		switch (O) {
+		
+		case Plus:
+			return  "Plus(" + left() + "," + right() + ")";
+			
+		case Times:
+			return  "mul(" + left() + "," + right() + ")";
+			
+		case Divid:
+			return "div(" + left() + "," + right() + ")";
+		case None:
+			if(right() == null) {
+				return  "(" + left() + ")";
+			}
+			break;
+		case Max:
+			return  "Max(" + left() + "," + right() + ")";	
+		case  Min:
+			return  "Min(" + left() + "," + right() + ")";
+		case Comp:
+			return  "Comp(" + left() + "," + right() + ")";
+		default:
+			break;
+		}
+		return  getOp() +"(" + left() + "," + right() + ")";
 	}
-//////////////////////*******Setters*******\\\\\\\\\\\\\\\\\\\\\\\
+	//////////////////////*******Setters*******\\\\\\\\\\\\\\\\\\\\\\\
 	public void setOp(Operation op) {
 		this.op = op;
 	}
