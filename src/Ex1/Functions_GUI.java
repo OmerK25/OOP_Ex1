@@ -2,16 +2,21 @@ package Ex1;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.function.Function;
 
 import stdDraw.StdDraw;
 
 public class Functions_GUI implements functions{
 	private ArrayList<function> function_List;
-	
+
 
 	public static Color[] Colors = {Color.blue, Color.cyan, Color.MAGENTA, Color.ORANGE, 
 			Color.red, Color.GREEN, Color.PINK};
@@ -81,27 +86,56 @@ public class Functions_GUI implements functions{
 		function_List.clear();
 
 	}
-
+/**
+ * This method creating a new lost of functions from a given file, containing functions.
+ */
 	@Override
 	public void initFromFile(String file) throws IOException {
+		Function f = (Function) new ComplexFunction(new Monom(Monom.ZERO));
+		String line ="";
 
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(file));
 
+			while ((line = br.readLine()) != null) {
+				function_List.add(((function) f).initFromString(line));
+			}
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
 	}
-
+	/**
+	 * This method converting the list of functions to a new file.
+	 */
 	@Override
 	public void saveToFile(String file) throws IOException {
-		// TODO Auto-generated method stub
+		
+		try {
+			PrintWriter pw = new PrintWriter(new File(file));
+			StringBuilder sb = new StringBuilder();
 
+			Iterator<function> it = function_List.iterator();
+			while(it.hasNext()) {
+
+				sb.append(it.next().toString()+"\n");
+			}
+			pw.write(sb.toString());
+			pw.close();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+			return;
+		}
 	}
-
 	@Override
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
 		double[] x = new double[resolution+1];
 		double[] y = new double[resolution+1];
-		
+
 		StdDraw.setXscale(rx.get_min(), rx.get_max());
 		StdDraw.setYscale(ry.get_min(), ry.get_max());
-		
+
 		StdDraw.setCanvasSize(width,height);
 		StdDraw.setPenColor(Color.LIGHT_GRAY);
 		////////vertical lines
