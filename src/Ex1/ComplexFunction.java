@@ -87,7 +87,7 @@ public class ComplexFunction implements complex_function {
 		}
 		ComplexFunction cf = new ComplexFunction((function) ob);
 
-		for (int i=1;i<=40;i++) {
+		for (int i=-20;i<=20;i++) {
 			if (this.f(i)!=cf.f(i)) {
 				return false;
 			}
