@@ -15,7 +15,7 @@ import java.util.function.Function;
 import stdDraw.StdDraw;
 
 public class Functions_GUI implements functions{
-	private ArrayList<function> function_List;
+	private ArrayList<function> function_List = new ArrayList<function>();
 
 
 	public static Color[] Colors = {Color.blue, Color.cyan, Color.MAGENTA, Color.ORANGE, 
@@ -86,9 +86,9 @@ public class Functions_GUI implements functions{
 		function_List.clear();
 
 	}
-/**
- * This method creating a new lost of functions from a given file, containing functions.
- */
+	/**
+	 * This method creating a new lost of functions from a given file, containing functions.
+	 */
 	@Override
 	public void initFromFile(String file) throws IOException {
 		Function f = (Function) new ComplexFunction(new Monom(Monom.ZERO));
@@ -110,7 +110,7 @@ public class Functions_GUI implements functions{
 	 */
 	@Override
 	public void saveToFile(String file) throws IOException {
-		
+
 		try {
 			PrintWriter pw = new PrintWriter(new File(file));
 			StringBuilder sb = new StringBuilder();
@@ -130,36 +130,48 @@ public class Functions_GUI implements functions{
 	}
 	@Override
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
-		double[] x = new double[resolution+1];
-		double[] y = new double[resolution+1];
 
+		// rescale the coordinate system
+		StdDraw.setCanvasSize(width, height);
 		StdDraw.setXscale(rx.get_min(), rx.get_max());
 		StdDraw.setYscale(ry.get_min(), ry.get_max());
 
-		StdDraw.setCanvasSize(width,height);
 		StdDraw.setPenColor(Color.LIGHT_GRAY);
-		////////vertical lines
-		for (int i = 0; i <= resolution; i=i+10) {
-			StdDraw.line(x[i], ry.get_min(), x[i], ry.get_max());
+		StdDraw.setFont(new Font("Arial", Font.BOLD, 15));
+		//horizon lines
+		for(double i= ry.get_min(); i<=ry.get_max();i++) {
+			StdDraw.line(rx.get_min(), i, rx.get_max(), i);
+			StdDraw.text(0.2,i+0.2,i+""); 
 		}
-		//////// horizontal  lines
-		for (double i = ry.get_min(); i <= ry.get_max(); i=i+0.5) {
-			StdDraw.line(0, i, Math.PI, i);
-		}
-		StdDraw.setPenColor(Color.BLACK);
-		StdDraw.setPenRadius(0.005);
-		StdDraw.line(0, y[resolution/2], Math.PI, y[resolution/2]);
-		StdDraw.setFont(new Font("TimesRoman", Font.BOLD, 15));
-		for (int i = 0; i <= resolution; i=i+10) {
-			StdDraw.text(x[i]-0.07, -0.07, Integer.toString(i-resolution/2));
-		}
-		//////// y axis	
-		StdDraw.line(x[resolution/2], ry.get_min(), x[resolution/2], ry.get_max());
-		for (double i = ry.get_min(); i <= ry.get_max(); i=i+0.5) {
-			StdDraw.text(x[resolution/2]-0.07, i+0.07, Double.toString(i));
+		//vertical lines
+		for(double j=rx.get_min(); j<=rx.get_max(); j++) {
+			StdDraw.line(j, ry.get_min(), j, ry.get_max());
+			StdDraw.text(j+0.2,0.2,j+""); 
 		}
 
+		//Drawing the base lines.	
+		StdDraw.setPenColor(Color.BLACK);
+		StdDraw.setPenRadius(0.005);
+		// x line.
+		StdDraw.line(rx.get_min(),0, rx.get_max(), 0);
+		//y line.
+		StdDraw.line(0, ry.get_min(), 0, ry.get_max());
+
+		double step = (Math.abs(rx.get_min())+Math.abs(rx.get_max()))/resolution;
+		for(int i=0; i<this.function_List.size();i++) {
+			StdDraw.setPenColor(Colors[i%Colors.length]);
+			for(double j =rx.get_min(); j< rx.get_max(); j=j+step) {
+				StdDraw.line(j, function_List.get(i).f(j), j+step, function_List.get(i).f(j+step));
+			}
+		}
 	}
+
+
+
+
+
+
+
 
 	@Override
 	public void drawFunctions(String json_file) {
