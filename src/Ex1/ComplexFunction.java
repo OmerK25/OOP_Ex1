@@ -24,12 +24,22 @@ public class ComplexFunction implements complex_function {
 		this.setOp(Operation.None);
 
 	}
+	
+	public ComplexFunction(Operation op, function p1 , function p2) {
+		setLeft(p1);
+		setRight(p2);
+		this.setOp(op);
+	}
 
 
 
 
 	//  *************************************************************************************
-
+/**
+ * 
+ * @param s, a string that represent an operator
+ * This method takes a string and convert him to operator like mul, div, plus.
+ */
 	public static Operation stringToOperator(String s) {
 		Operation o = null;
 		s = s.toLowerCase();
@@ -79,7 +89,10 @@ public class ComplexFunction implements complex_function {
 		}
 		return o;
 	}
-	
+	/**
+	 * This method checks if 2 functions are equal.
+	 *  it calculate the value of 40 points and if they are all equal it return true.
+	 */
 	@Override
 	public boolean equals(Object ob) {
 		if(!(ob instanceof ComplexFunction)) {
@@ -94,7 +107,9 @@ public class ComplexFunction implements complex_function {
 		}
 		return true;
 	}
-
+/**
+ * This method calculate the value of the function in a given x point.
+ */
 	@Override
 	public double f(double x) {
 		// TODO Auto-generated method stub
@@ -127,7 +142,10 @@ public class ComplexFunction implements complex_function {
 
 		return f;
 	}
-
+/**
+ * @param s, is a string thats represent a function, 
+ * and this method initializes a functions from it.
+ */
 	@Override
 	public function initFromString(String s) {
 		// TODO Auto-generated method stub
@@ -185,14 +203,20 @@ public class ComplexFunction implements complex_function {
 		}
 		return d;
 	}
-
+/**
+ * This method creates a copied function from the original one.
+ */
 	@Override
 	public function copy() {
 		// TODO Auto-generated method stub
 		function f= new ComplexFunction(this.op.toString(), left(), right());
 		return f;
 	}
-
+/**
+ * ***********************Operators functions**************************
+ * Those method get an operator as an argument,
+ *  and returns a new complex function with the added function and the operator it gets.
+ */
 	@Override
 	public void plus(function f1) {
 		if(this.right == null) {
@@ -280,7 +304,7 @@ public class ComplexFunction implements complex_function {
 		setLeft(f);
 		setRight(f1);
 		setOp(Operation.Comp);
-
+//**************************************************************
 	}
 	// ***************** Getters ******************
 	@Override
@@ -300,6 +324,8 @@ public class ComplexFunction implements complex_function {
 		// TODO Auto-generated method stub
 		return this.op;
 	}
+	//***************************************
+	
 	@Override
 	public String toString() {
 		if(right() == null) {

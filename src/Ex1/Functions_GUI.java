@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.function.Function;
+
+import com.google.gson.Gson;
 
 import stdDraw.StdDraw;
 
@@ -91,7 +94,7 @@ public class Functions_GUI implements functions{
 	 */
 	@Override
 	public void initFromFile(String file) throws IOException {
-		Function f = (Function) new ComplexFunction(new Monom(Monom.ZERO));
+		function f =  new ComplexFunction(new Monom(Monom.ZERO));
 		String line ="";
 
 		try {
@@ -128,6 +131,10 @@ public class Functions_GUI implements functions{
 			return;
 		}
 	}
+	
+	/**
+	 * This method get the drawing params and drawing a function list on a canvas by them.
+	 */
 	@Override
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
 
@@ -170,13 +177,29 @@ public class Functions_GUI implements functions{
 
 
 
-
+/**
+ * This method extracting parameters from json file and send them to the drawFunction function.
+ */
 
 
 	@Override
 	public void drawFunctions(String json_file) {
-		// TODO Auto-generated method stub
-
+		Gson gson = new Gson();
+		try 
+		{
+			
+			FileReader reader = new FileReader(json_file);
+			params params = gson.fromJson(reader,params.class);
+			
+			Range rx = new Range(params.Range_X[0],params.Range_X[1]);
+			Range ry = new Range(params.Range_Y[0],params.Range_Y[1]);
+			drawFunctions(params.Width, params.Height, rx, ry, params.Resolution);
+			
+		} 
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	
 	}
 
 }

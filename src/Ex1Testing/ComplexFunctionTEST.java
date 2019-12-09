@@ -25,6 +25,11 @@ class ComplexFunctionTEST {
 			fail("your Operations test fail");
 		}
 	}
+	@Test
+	void testToString() {
+		ComplexFunction cf = new ComplexFunction(new Monom("x"));
+		 System.out.println(cf.toString());
+	}
 
 	@Test
 	void testComplexFunctionFunction1() {
