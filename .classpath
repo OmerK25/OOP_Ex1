@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/gson_lib"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="C:/Users/Raafat Marzuq/git/OOP_Ex1/gson-2.8.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
