@@ -115,9 +115,7 @@ class PolynomTEST {
 
 		p.substract(p2);
 
-		//		if(!p.equals("+")) {
-		//			fail("wrong FUNCTION");
-		//		}
+		
 		Polynom p3 = new Polynom("x^2+6x+2-x^2-6x-2");
 
 		assertEquals("+", p3.toString());

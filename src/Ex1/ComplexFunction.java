@@ -40,6 +40,8 @@ public class ComplexFunction implements complex_function {
  * @param s, a string that represent an operator
  * This method takes a string and convert him to operator like mul, div, plus.
  */
+	
+	//this method convert the string to operator
 	public static Operation stringToOperator(String s) {
 		Operation o = null;
 		s = s.toLowerCase();
@@ -94,6 +96,7 @@ public class ComplexFunction implements complex_function {
 	 *  it calculate the value of 40 points and if they are all equal it return true.
 	 */
 	@Override
+	
 	public boolean equals(Object ob) {
 		if(!(ob instanceof ComplexFunction)) {
 			return false;
@@ -112,28 +115,50 @@ public class ComplexFunction implements complex_function {
  */
 	@Override
 	public double f(double x) {
-		// TODO Auto-generated method stub
+		
 		double f=0;
 		Operation O= getOp();
 		switch (O) {
-
+		
 		case Plus:
-			f=this.left().f(x) + this.right().f(x);
+			f=left().f(x) + right().f(x);
 
 			break;
 		case Times:
-			f=this.left().f(x)* this.right().f(x);
+			f=left().f(x)* right().f(x);
 
 			break;
 		case Divid:
-			f=(this.left().f(x)/this.right().f(x));
+			f=(left().f(x)/right().f(x));
+			break;
 
 		case None:
 			if(left() == null) {
-				f= this.right().f(x);
+				f= right().f(x);
 			}
 			if(right() == null) {
-				f=this.left().f(x);
+				f=left().f(x);
+			}
+			break;
+
+		case Max:
+			if(left().f(x) > right.f(x)) {
+				f=left().f(x);
+			
+			}
+			f= right().f(x);
+			break;
+
+		case Min:
+			if(left().f(x) > right.f(x)) {
+				f=right().f(x);
+			
+			}
+			f= left().f(x);
+			break;
+		case Comp:
+			if(right() == null) {
+				f=left().f(x);
 			}
 			break;
 		default:
@@ -148,7 +173,7 @@ public class ComplexFunction implements complex_function {
  */
 	@Override
 	public function initFromString(String s) {
-		// TODO Auto-generated method stub
+	
 		int i=0;
 		String n=trimAll(s);
 		if(!n.contains(")") && !n.contains("(")) {
@@ -172,6 +197,7 @@ public class ComplexFunction implements complex_function {
 			return function;
 		}
 	}
+	//this method finds the meddle of a given function (finds the apostrophe)
 	public int findMed(String str ,int j) {
 
 		int c=0, p=1, S=0;
@@ -192,7 +218,7 @@ public class ComplexFunction implements complex_function {
 		return S;
 
 	}
-
+	//this method returns the strings without spaces
 	public String trimAll(String s) {
 		String d="";
 		for (int i = 0; i < s.length(); i++) {
@@ -208,7 +234,6 @@ public class ComplexFunction implements complex_function {
  */
 	@Override
 	public function copy() {
-		// TODO Auto-generated method stub
 		function f= new ComplexFunction(this.op.toString(), left(), right());
 		return f;
 	}
@@ -233,7 +258,7 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public void mul(function f1) {
-		// TODO Auto-generated method stub
+
 		if(this.right == null) {
 			setRight(f1);
 			setOp(Operation.Times);
@@ -249,7 +274,7 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public void div(function f1) {
-		// TODO Auto-generated method stub
+
 		if(this.right == null) {
 			setRight(f1);
 			setOp(Operation.Divid);
@@ -264,7 +289,7 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public void max(function f1) {
-		// TODO Auto-generated method stub
+
 		if(this.right == null) {
 			setRight(f1);
 			setOp(Operation.Max);
@@ -279,7 +304,7 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public void min(function f1) {
-		// TODO Auto-generated method stub
+
 		if(this.right == null) {
 			setRight(f1);
 			setOp(Operation.Min);
@@ -294,7 +319,7 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public void comp(function f1) {
-		// TODO Auto-generated method stub
+
 		if(this.right == null) {
 			setRight(f1);
 			setOp(Operation.Comp);
@@ -309,7 +334,7 @@ public class ComplexFunction implements complex_function {
 	// ***************** Getters ******************
 	@Override
 	public function left() {
-		// TODO Auto-generated method stub
+
 		return this.left;
 	}
 
@@ -321,13 +346,14 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public Operation getOp() {
-		// TODO Auto-generated method stub
+
 		return this.op;
 	}
 	//***************************************
 	
-	@Override
+	@Override //this method returns a string of the Comlex function
 	public String toString() {
+		
 		if(right() == null) {
 			return   left().toString() 	;
 		}
