@@ -329,8 +329,9 @@ public class ComplexFunction implements complex_function {
 		setLeft(f);
 		setRight(f1);
 		setOp(Operation.Comp);
-//**************************************************************
 	}
+//**************************************************************
+	
 	// ***************** Getters ******************
 	@Override
 	public function left() {
@@ -385,6 +386,8 @@ public class ComplexFunction implements complex_function {
 		return  getOp() +"(" + left() + "," + right() + ")";
 	}
 	//////////////////////*******Setters*******\\\\\\\\\\\\\\\\\\\\\\\
+	
+	
 	public void setOp(Operation op) {
 		this.op = op;
 	}
