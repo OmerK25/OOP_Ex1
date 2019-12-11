@@ -157,9 +157,11 @@ public class ComplexFunction implements complex_function {
 			f= left().f(x);
 			break;
 		case Comp:
-			if(right() == null) {
-				f=left().f(x);
+			if(right() != null) {
+				f=left().f(right.f(x));
 			}
+			f= left().f(x);
+			
 			break;
 		default:
 			break;
